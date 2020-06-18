@@ -1,6 +1,5 @@
 import os
 import jinja2
-import argparse
 from argparse import ArgumentParser, RawTextHelpFormatter
 
 
@@ -9,16 +8,12 @@ def build_parser():
                     description='accelBIDSTransform BIDS args',
                     formatter_class=RawTextHelpFormatter
                     )
-    parser.add_argument('log_dir', help='directory where log files are kept')
+    parser.add_argument('log_dir', help='(must be absolute path) directory where log '
+                                        'files are kept')
     parser.add_argument('output_file', help='location of the html output')
     parser.add_argument('template_file', help='location of the html template')
 
     return parser
-
-# base_dir = '/home/zoheb/projects/vosslab/log-html/logs/'
-# template_dir = '/home/zoheb/projects/vosslab/log-html/templates'
-# template_name = 'temp.tpl'
-# out_file = '/home/zoheb/projects/vosslab/log-html/output.html'
 
 
 class Accel():
@@ -32,6 +27,7 @@ class Accel():
         self.path = path
         self.date = date
         self.time = time
+
 
 opts = build_parser().parse_args()
 (_, _, filenames) = next(os.walk(opts.log_dir))
