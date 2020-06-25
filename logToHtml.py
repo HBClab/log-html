@@ -8,12 +8,10 @@ def build_parser():
                     description='accelBIDSTransform BIDS args',
                     formatter_class=RawTextHelpFormatter
                     )
-    parser.add_argument('log_dir', help='(must be absolute path) directory where log '
+    parser.add_argument('log_dir', help='directory where log '
                                         'files are mounted')
     parser.add_argument('output_file', help='location of the html output')
     parser.add_argument('template_file', help='location of the html template')
-    parser.add_argument('rdss_log_dir', help='(must be absolute path) directory on '
-                                             'rdss drive containing logs')
 
     return parser
 
@@ -41,11 +39,11 @@ for fil in filenames:
     date = contents[0:10]
     time = contents[11:19]
     if 'ERROR' in contents:
-        accel_files.append(Accel(fil, 'ERROR', 'file:///' +
-                                 os.path.join(opts.rdss_log_dir, fil), date, time))
+        accel_files.append(Accel(fil, 'ERROR', 'file:' +
+                                 os.path.join(opts.log_dir, fil), date, time))
     else:
-        accel_files.append(Accel(fil, 'SUCCESS', 'file:///' +
-                                 os.path.join(opts.rdss_log_dir, fil), date, time))
+        accel_files.append(Accel(fil, 'SUCCESS', 'file:' +
+                                 os.path.join(opts.log_dir, fil), date, time))
 
 env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(searchpath=os.path.dirname(opts.template_file))
