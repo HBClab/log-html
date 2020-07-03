@@ -24,4 +24,4 @@ COPY --chown=coder . /home/coder/projects/
 RUN conda env create -f environment.yml
 RUN bash -c 'conda init && . /home/coder/.bashrc'
 
-ENTRYPOINT ["/opt/miniconda-latest/envs/log/bin/python", "/home/coder/projects/logToHtml.py"]
+ENTRYPOINT ["/opt/miniconda-latest/envs/log/bin/python", "/home/coder/projects/log-html/logToHtml.py"]

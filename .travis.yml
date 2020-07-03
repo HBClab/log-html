@@ -1,0 +1,16 @@
+anguage: python
+
+services:
+  - docker
+
+before_install:
+  - docker build -t hbclab/log-html .
+
+script:
+  - docker run --entrypoint /bin/bash hbclab/log-html -c ". activate log && pytest /home/coder/projects/log-html"
+
+deploy:
+  provider: script
+  script: bash docker_push.sh
+  on:
+    all_branches: true
